@@ -1,0 +1,56 @@
+# This function takes a ciphertext as input and creates an array of integers as an output.
+# Each index in the array corresponds to the count of that letter in the alphabet (0 = A, 1 = B...)
+def char_count(cipher):
+    alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+    cipher_count = [0 for a in range(26)]
+
+    no_space = cipher.replace(" ", "")
+    cipher_length = len(no_space)
+
+    # iterate over cipher text and compute frequencies for each character
+    for i in range(cipher_length):
+        alphabet_index = alphabet.index(no_space[i]) # index of character in alphabet
+        cipher_count[alphabet_index] += 1
+    return cipher_count
+
+def caesar(cipher):
+    # define alphabet and initialize array to store frequencies of characters in cipher text
+    alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+    english_freq = [0.080,0.015,0.030,0.040,0.130,0.020,0.015,0.060,0.065,0.005,0.005,0.035,0.030,0.070,0.080,0.020,
+                    0.002,0.065,0.060,0.090,0.030,0.010,0.015,0.005,0.020,0.002]
+    correlation_freq = [0 for a in range(26)]
+
+    no_space = cipher.replace(" ", "")
+    cipher_length = len(no_space)
+
+    # compute the count of each letter in the ciphertext. Then get the frequencies for each character.
+    cipher_freq = char_count(cipher)
+    for i in range(26):
+        cipher_freq[i] = cipher_freq[i] / cipher_length
+
+    # compute the correlation frequencies (phi)
+    # compute frequency for every value of i [0, 25]
+    for i in range(26):
+        # phi(i) = summation[0,25](f(c)*f'(e-i))
+        freq = 0
+        # sum every letter in the alphabet
+        for e in range(len(alphabet)):
+            freq += cipher_freq[e]*english_freq[(26 + e - i)%26]
+        correlation_freq[i] = freq
+
+    # Find the highest correlation probability and shift ciphertext by the corresponding key.
+    max_freq = max(correlation_freq)
+    max_index = correlation_freq.index(max_freq)
+    cleartext = ""
+    for j in range(len(cipher)):
+        if cipher[j] == " ":
+            cleartext += " "
+        else:
+            cleartext += (alphabet[(alphabet.index(cipher[j]) + 26 - max_index) % 26])
+
+    return (cleartext, max_freq, max_index)
+
+if __name__ == '__main__':
+    cipher = input("Input the Caesar cipher string: ").upper()
+    output = caesar(cipher)
+    print("Correlation: " + str(output[1]) + "\n(Shift: " + str(output[2]) + ") \nCleartext: " + output[0].lower())
