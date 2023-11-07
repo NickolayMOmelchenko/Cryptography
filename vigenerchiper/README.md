@@ -16,7 +16,7 @@ For example, H (7th letter) + K (10th letter) = R (17th letter).
 
 1. Run the Python script:
 ```script
-    vigenere_breaker.py.
+python3 vigenere_breaker.py
 ```
 
 Enter the Vigenère cipher you want to decrypt.
@@ -28,15 +28,13 @@ Example:
 Suppose you have the following Vigenère cipher:
 
 ## Input 
-
+```script
 Input Vigenere cipher: Rijvs dbmcxh rrelu cme jmb gfogisre yyr dlc zvmqvyw Fccx mp psmo
-
 Enter the desired IC number: 5
-
 Enter the desired period: 3
-
+```
 
 ## Output
 ```script
-    hellofriendthankyouforcheckingouttheprogrambestofluck
+hellofriendthankyouforcheckingouttheprogrambestofluck
 ```
