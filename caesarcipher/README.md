@@ -7,7 +7,7 @@ This Python program is designed to decode Caesar ciphers. A Caesar cipher is a s
 1. Run the program using Python.
 
 ```shell
-python caesar_cipher_solver.py
+python caesarcipher.py
 ```
 
 2. Input the Caesar cipher string when prompted.
@@ -25,5 +25,5 @@ Input the Caesar cipher string: Bdb lw zrunv
 
 Output:
 ```shell
-Correlation: 0.08594370396808874 (Shift: 7) Cleartext: yay it works
+Cleartext: yay it works
 ```
